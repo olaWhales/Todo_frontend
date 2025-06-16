@@ -5,16 +5,19 @@ import "../styles/CreateNote.css";
 const CreateNote: React.FC = () => {
   const [noteTitle, setNoteTitle] = useState("");
   const [noteContent, setNoteContent] = useState("");
+  const [isPublic, setIsPublic] = useState(false); // ✅ added
 
   const handleSubmit = async () => {
     try {
       const response = await axios.post("http://localhost:8080/api/notes", {
         title: noteTitle,
         content: noteContent,
+        public: isPublic, // ✅ send "public" in the payload
       });
       alert("Note created!");
       setNoteTitle("");
       setNoteContent("");
+      setIsPublic(false); // reset checkbox
     } catch (error) {
       console.error("Failed to create note:", error);
     }
@@ -36,6 +39,14 @@ const CreateNote: React.FC = () => {
         onChange={(e) => setNoteContent(e.target.value)}
         className="note-textarea"
       />
+      <label className="checkbox-label">
+        <input
+          type="checkbox"
+          checked={isPublic}
+          onChange={(e) => setIsPublic(e.target.checked)}
+        />
+        Make this note public
+      </label>
       <button onClick={handleSubmit} className="submit-button">
         Save Note
       </button>

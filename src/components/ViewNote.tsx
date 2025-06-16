@@ -1,38 +1,46 @@
-// import React, { useState, useEffect } from 'react';
-// import { getNote } from '../api';
-// import '../styles/ViewNote.css';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import "../styles/ViewNote.css";
 
-// const ViewNote: React.FC<{ noteId: number }> = ({ noteId }) => {
-//   const [note, setNote] = useState<{ id: number | null; title: string; content: string; isPublic: boolean; createdBy: string } | null>(null);
+const ViewNote: React.FC = () => {
+  const { id } = useParams();
+  const [note, setNote] = useState<{ title: string; content: string } | null>(
+    null
+  );
+  const [error, setError] = useState<string>("");
 
-//   useEffect(() => {
-//     const fetchNote = async () => {
-//       try {
-//         const fetchedNotes = await getNote(noteId);
-//         const fetchedNote = Array.isArray(fetchedNotes) ? fetchedNotes[0] : fetchedNotes;
-//         setNote(fetchedNote);
-//       } catch (error) {
-//         console.error('Error fetching note:', error);
-//       }
-//     };
-//     fetchNote();
-//   }, [noteId]);
+  useEffect(() => {
+    const fetchNote = async () => {
+      try {
+        const response = await axios.get(
+          `http://localhost:8080/api/notes/${id}`
+        );
+        setNote(response.data);
+      } catch (err: any) {
+        setError(
+          "Unable to fetch note. You may not have access or it doesn't exist."
+        );
+        console.error(err);
+      }
+    };
 
-//   if (!note) {
-//     return <div className="view-note-container">Loading...</div>;
-//   }
+    if (id) fetchNote();
+  }, [id]);
 
-//   return (
-//     <div className="view-note-container">
-//       <h2>View Note</h2>
-//       <div className="view-note-details">
-//         <p className="title">{note.title}</p>
-//         <p className="content">{note.content}</p>
-//         <p>Public: {note.isPublic ? 'Yes' : 'No'}</p>
-//         <p>Created By: {note.createdBy}</p>
-//       </div>
-//     </div>
-//   );
-// };
+  return (
+    <div className="view-note-container">
+      {error && <p className="error">{error}</p>}
+      {note ? (
+        <>
+          <h2>{note.title}</h2>
+          <p>{note.content}</p>
+        </>
+      ) : (
+        !error && <p>Loading note...</p>
+      )}
+    </div>
+  );
+};
 
-// export default ViewNote;
+export default ViewNote;

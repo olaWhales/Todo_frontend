@@ -1,52 +1,32 @@
-// import React, { useState } from "react";
-// import { deleteNote } from "../api";
-// import "../styles/DeleteNote.css";
+import React, { useEffect } from "react";
+import { useParams, useNavigate } from "react-router-dom";
+import axios from "axios";
+import "../styles/DeleteNote.css";
 
-// const DeleteNote: React.FC<{ noteId: number; onDelete: () => void }> = ({
-//   noteId,
-//   onDelete,
-// }) => {
-//   const [showConfirm, setShowConfirm] = useState(false);
+const DeleteNote: React.FC = () => {
+  const { id } = useParams();
+  const navigate = useNavigate();
 
-//   const handleDelete = async () => {
-//     setShowConfirm(true);
-//   };
+  useEffect(() => {
+    const deleteNote = async () => {
+      try {
+        await axios.delete(`http://localhost:8080/api/notes/${id}`);
+        alert("Note deleted successfully.");
+        navigate("/view-all-notes"); // Adjust route based on your app
+      } catch (error) {
+        alert("Failed to delete the note. Make sure you are authorized.");
+        console.error(error);
+      }
+    };
 
-//   const confirmDelete = async () => {
-//     try {
-//       await deleteNote(noteId);
-//       console.log("Note deleted:", noteId);
-//       onDelete(); // Callback to refresh the list or close the component
-//     } catch (error) {
-//       console.error("Error deleting note:", error);
-//     }
-//     setShowConfirm(false);
-//   };
+    if (id) deleteNote();
+  }, [id, navigate]);
 
-//   const cancelDelete = () => {
-//     setShowConfirm(false);
-//   };
+  return (
+    <div className="delete-note-container">
+      <p>Deleting note...</p>
+    </div>
+  );
+};
 
-//   return (
-//     <div className="delete-note-container">
-//       <h2>Delete Note</h2>
-//       {!showConfirm ? (
-//         <button className="delete-btn" onClick={handleDelete}>
-//           Delete
-//         </button>
-//       ) : (
-//         <div className="delete-note-form">
-//           <p>Are you sure you want to delete this note?</p>
-//           <button className="delete-btn" onClick={confirmDelete}>
-//             Yes
-//           </button>
-//           <button className="cancel-btn" onClick={cancelDelete}>
-//             No
-//           </button>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default DeleteNote;
+export default DeleteNote;

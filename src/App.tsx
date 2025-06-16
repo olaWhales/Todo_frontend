@@ -10,6 +10,9 @@ import Login from "./components/Login";
 import TodoApp from "./TodoApp";
 import Homepage from "./components/Homepage";
 import CreateNote from "./components/CreateNote";
+import ViewNote from "./components/ViewNote";
+import EditNote from "./components/EditNote";
+import DeleteNote from "./components/DeleteNote";
 interface AuthContextProps {
   authenticated: boolean;
   userInfo: any | null;
@@ -54,6 +57,9 @@ const App: React.FC = () => {
           <Route path="/login" element={<Login />} />
           <Route path="/" element={<Homepage />} />
           <Route path="/create-note" element={<CreateNote />} />
+          <Route path="/view/:id" element={<ViewNote />} />
+          <Route path="/edit/:id" element={<EditNote />} />
+          <Route path="/delete/:id" element={<DeleteNote />} />
           <Route
             path="/todo"
             element={authenticated ? <TodoApp /> : <Navigate to="/login" />}
