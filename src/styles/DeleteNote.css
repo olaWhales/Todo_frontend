@@ -1,0 +1,41 @@
+.delete-note-container {
+    background: linear-gradient(to right, #F44336, #EF9A9A);
+    padding: 20px;
+    text-align: center;
+}
+
+.delete-note-container h2 {
+    color: #FFFFFF;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.delete-note-form {
+    background: #FFFFFF;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+    display: inline-block;
+}
+
+.delete-note-form p {
+    margin: 10px 0;
+    color: #F44336;
+}
+
+.delete-note-form button {
+    padding: 5px 10px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.delete-note-form .delete-btn {
+    background: #F44336;
+    color: #FFFFFF;
+}
+
+.delete-note-form .cancel-btn {
+    background: #EF9A9A;
+    color: #FFFFFF;
+}

@@ -1,15 +1,32 @@
-import Keycloak from 'keycloak-js';
+import Keycloak from "keycloak-js";
 
-const keycloakInstance = new Keycloak({
-  url: 'https://<your-keycloak-server>/auth',
-  realm: '<your-realm>',
-  clientId: '<your-client-id>',
+export const keycloakInstance = new Keycloak({
+  url: "http://localhost:8080",
+  realm: "Olawale",
+  clientId: "todoApp",
 });
 
-export interface KeycloakUserInfo {
-  name?: string;
-  email?: string;
-  [key: string]: any;
-}
+let alreadyInitialized = false;
+// const DISABLE_KEYCLOAK = true; // ⬅️ Add this toggle
 
-export { keycloakInstance };
+export const initKeycloak = (
+  onSuccess: (auth: boolean) => void,
+  onError: (err: unknown) => void
+) => {
+  if (DISABLE_KEYCLOAK) {
+    console.log("Keycloak init skipped (dev mode)");
+    onSuccess(true); // just continue without auth
+    return;
+  }
+
+  if (!alreadyInitialized) {
+    alreadyInitialized = true;
+    keycloakInstance
+      .init({ onLoad: "login-required", checkLoginIframe: false })
+      .then(onSuccess)
+      .catch(onError);
+  } else {
+    console.log("Keycloak already initialized.");
+  }
+};
+export const DISABLE_KEYCLOAK = true; // <-- already exists, just export it

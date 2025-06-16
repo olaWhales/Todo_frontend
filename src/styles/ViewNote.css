@@ -1,0 +1,32 @@
+.view-note-container {
+    background: linear-gradient(to right, #42A5F5, #90CAF9);
+    padding: 20px;
+}
+
+.view-note-container h2 {
+    color: #FFFFFF;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.view-note-details {
+    background: #FFFFFF;
+    padding: 10px;
+    border-radius: 5px;
+    margin-top: 10px;
+}
+
+.view-note-details p {
+    margin: 5px 0;
+    color: #333333;
+}
+
+.view-note-details .title {
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.view-note-details .content {
+    white-space: pre-wrap;
+    /* Preserve newlines and spaces */
+}

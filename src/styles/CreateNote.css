@@ -1,0 +1,44 @@
+.create-note-container {
+    max-width: 600px;
+    margin: 3rem auto;
+    padding: 2rem;
+    background: #f9f9ff;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.note-title-input,
+.note-textarea {
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 1rem;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+    font-size: 1rem;
+}
+
+.note-textarea {
+    height: 200px;
+    resize: vertical;
+}
+
+.submit-button {
+    padding: 10px 20px;
+    background-color: #2196f3;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 1rem;
+}
+
+.submit-button:hover {
+    background-color: #1976d2;
+}
