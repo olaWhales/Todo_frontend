@@ -1,24 +1,20 @@
-// apiBase.ts
 import axios from "axios";
-import { keycloakInstance } from "./Keycloak";
+import { useAuth } from "./App"; // Adjust path if needed
 
 const api = axios.create({
-  baseURL: "/api",
+  baseURL: "http://localhost:8080/api", // Match your backend API base URL
 });
 
 // Interceptor to attach fresh token before each request
 api.interceptors.request.use(async (config) => {
-  if (keycloakInstance.token) {
-    try {
-      await keycloakInstance.updateToken(70);
-      config.headers = config.headers || {};
-      (config.headers as any).set('Authorization', `Bearer ${keycloakInstance.token}`);
-    } catch (error) {
-      console.error("Token update failed:", error);
-      // Optional: handle logout or redirect to login
-    }
+  const { token } = useAuth(); // Use context token
+  if (token) {
+    config.headers = config.headers || {};
+    (config.headers as any).Authorization = `Bearer ${token}`;
   }
   return config;
+}, (error) => {
+  return Promise.reject(error);
 });
 
 export default api;

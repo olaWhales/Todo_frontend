@@ -1,13 +1,14 @@
 import Keycloak from "keycloak-js";
 
 export const keycloakInstance = new Keycloak({
-  url: "http://localhost:8080",
+  url: "http://localhost:8080", // Update to your Keycloak server URL if different
   realm: "Olawale",
   clientId: "todoApp",
+  redirectUri: window.location.origin + "/homepage", // Redirect to homepage after login
 });
 
 let alreadyInitialized = false;
-// const DISABLE_KEYCLOAK = true; // ⬅️ Add this toggle
+export const DISABLE_KEYCLOAK = process.env.NODE_ENV === "development"; // Toggle based on environment
 
 export const initKeycloak = (
   onSuccess: (auth: boolean) => void,
@@ -15,7 +16,7 @@ export const initKeycloak = (
 ) => {
   if (DISABLE_KEYCLOAK) {
     console.log("Keycloak init skipped (dev mode)");
-    onSuccess(true); // just continue without auth
+    onSuccess(true); // Bypass auth in dev mode
     return;
   }
 
@@ -23,10 +24,18 @@ export const initKeycloak = (
     alreadyInitialized = true;
     keycloakInstance
       .init({ onLoad: "login-required", checkLoginIframe: false })
-      .then(onSuccess)
+      .then((authenticated) => {
+        if (authenticated) {
+          console.log("User is authenticated");
+          onSuccess(true);
+        } else {
+          console.log("User is not authenticated");
+          onError(new Error("Not authenticated"));
+        }
+      })
       .catch(onError);
   } else {
     console.log("Keycloak already initialized.");
+    onSuccess(keycloakInstance.authenticated || false);
   }
 };
-export const DISABLE_KEYCLOAK = true; // <-- already exists, just export it

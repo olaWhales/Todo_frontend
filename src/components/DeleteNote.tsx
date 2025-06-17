@@ -1,32 +1,35 @@
-import React, { useEffect } from "react";
-import { useParams, useNavigate } from "react-router-dom";
-import axios from "axios";
-import "../styles/DeleteNote.css";
+// import React, { useState } from "react";
+// import "../styles/DeleteNote.css";
+// import { useParams, useNavigate } from "react-router-dom";
+// import axios from "axios";
 
-const DeleteNote: React.FC = () => {
-  const { id } = useParams();
-  const navigate = useNavigate();
+// const DeleteNote: React.FC = () => {
+//   const { id } = useParams();
+//   const navigate = useNavigate();
+//   const [message, setMessage] = useState("");
 
-  useEffect(() => {
-    const deleteNote = async () => {
-      try {
-        await axios.delete(`http://localhost:8080/api/notes/${id}`);
-        alert("Note deleted successfully.");
-        navigate("/view-all-notes"); // Adjust route based on your app
-      } catch (error) {
-        alert("Failed to delete the note. Make sure you are authorized.");
-        console.error(error);
-      }
-    };
+//   const handleDelete = async () => {
+//     try {
+//       const response = await axios.delete(
+//         `http://localhost:8080/api/notes/${id}`
+//       );
+//       setMessage(response.data.message);
+//       setTimeout(() => navigate("/"), 2000); // Redirect to homepage after deletion
+//     } catch (err) {
+//       setMessage("Failed to delete note.");
+//       console.error(err);
+//     }
+//   };
 
-    if (id) deleteNote();
-  }, [id, navigate]);
+//   return (
+//     <div className="delete-note-container">
+//       <h2>Delete This Note?</h2>
+//       <button onClick={handleDelete} className="delete-button">
+//         Confirm Delete
+//       </button>
+//       {message && <p className="delete-message">{message}</p>}
+//     </div>
+//   );
+// };
 
-  return (
-    <div className="delete-note-container">
-      <p>Deleting note...</p>
-    </div>
-  );
-};
-
-export default DeleteNote;
+// export default DeleteNote;

@@ -1,41 +1,30 @@
-.delete-note-container {
-    background: linear-gradient(to right, #F44336, #EF9A9A);
-    padding: 20px;
+/* .delete-note-container {
     text-align: center;
+    padding: 2rem;
+    margin: 3rem auto;
+    background-color: #fff8f8;
+    border: 1px solid #f5c2c2;
+    border-radius: 10px;
+    max-width: 500px;
 }
 
-.delete-note-container h2 {
-    color: #FFFFFF;
-    font-size: 1.5rem;
-    font-weight: bold;
-}
-
-.delete-note-form {
-    background: #FFFFFF;
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 10px;
-    display: inline-block;
-}
-
-.delete-note-form p {
-    margin: 10px 0;
-    color: #F44336;
-}
-
-.delete-note-form button {
-    padding: 5px 10px;
-    border-radius: 5px;
+.delete-button {
+    background-color: #d9534f;
+    color: white;
+    padding: 0.8rem 1.5rem;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
     cursor: pointer;
-    margin: 0 5px;
+    margin-top: 1rem;
 }
 
-.delete-note-form .delete-btn {
-    background: #F44336;
-    color: #FFFFFF;
+.delete-button:hover {
+    background-color: #c9302c;
 }
 
-.delete-note-form .cancel-btn {
-    background: #EF9A9A;
-    color: #FFFFFF;
-}
+.delete-message {
+    margin-top: 1.2rem;
+    font-size: 1rem;
+    color: #b22222;
+} */

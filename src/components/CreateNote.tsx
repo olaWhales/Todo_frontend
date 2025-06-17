@@ -2,7 +2,9 @@ import React, { useState } from "react";
 import axios from "axios";
 import "../styles/CreateNote.css";
 
-const CreateNote: React.FC = () => {
+const CreateNote: React.FC<{ onNoteCreated?: () => void }> = ({
+  onNoteCreated,
+}) => {
   const [noteTitle, setNoteTitle] = useState("");
   const [noteContent, setNoteContent] = useState("");
   const [isPublic, setIsPublic] = useState(false); // ✅ added
@@ -15,6 +17,7 @@ const CreateNote: React.FC = () => {
         public: isPublic, // ✅ send "public" in the payload
       });
       alert("Note created!");
+      if (onNoteCreated) onNoteCreated();
       setNoteTitle("");
       setNoteContent("");
       setIsPublic(false); // reset checkbox

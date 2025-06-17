@@ -1,46 +1,40 @@
-import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import axios from "axios";
-import "../styles/ViewNote.css";
+// import React, { useEffect, useState } from "react";
+// import { useParams } from "react-router-dom";
+// import axios from "axios";
+// import "../styles/ViewNote.css";
 
-const ViewNote: React.FC = () => {
-  const { id } = useParams();
-  const [note, setNote] = useState<{ title: string; content: string } | null>(
-    null
-  );
-  const [error, setError] = useState<string>("");
+// const ViewNote: React.FC<{ noteId: number }> = ({ noteId }) => {
+//   const [note, setNote] = useState<any>(null);
 
-  useEffect(() => {
-    const fetchNote = async () => {
-      try {
-        const response = await axios.get(
-          `http://localhost:8080/api/notes/${id}`
-        );
-        setNote(response.data);
-      } catch (err: any) {
-        setError(
-          "Unable to fetch note. You may not have access or it doesn't exist."
-        );
-        console.error(err);
-      }
-    };
+//   useEffect(() => {
+//     axios
+//       .get(`http://localhost:8080/api/notes/${noteId}`)
+//       .then((res) => setNote(res.data))
+//       .catch((err) => console.error("Fetch failed:", err));
+//   }, [noteId]);
 
-    if (id) fetchNote();
-  }, [id]);
+//   if (!note) return <p>Loading note...</p>;
 
-  return (
-    <div className="view-note-container">
-      {error && <p className="error">{error}</p>}
-      {note ? (
-        <>
-          <h2>{note.title}</h2>
-          <p>{note.content}</p>
-        </>
-      ) : (
-        !error && <p>Loading note...</p>
-      )}
-    </div>
-  );
-};
+//   return (
+//     <div className="note-view">
+//       <div className="note-header">
+//         <h3>{note.title}</h3>
+//         <div className="dot-menu">
+//           <span onClick={() => handleDelete(noteId)}>⋮</span>
+//         </div>
+//       </div>
+//       <p>{note.content}</p>
+//     </div>
+//   );
 
-export default ViewNote;
+//   function handleDelete(id: number) {
+//     if (window.confirm("Delete this note?")) {
+//       axios
+//         .delete(`http://localhost:8080/api/notes/${id}`)
+//         .then(() => alert("Deleted!"))
+//         .catch((err) => console.error("Delete failed:", err));
+//     }
+//   }
+// };
+  
+// export default ViewNote;
