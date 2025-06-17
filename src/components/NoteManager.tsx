@@ -212,7 +212,6 @@
 
 // export default NoteManager;
 
-
 import React, { useState, useEffect, useContext } from "react";
 import axios from "axios";
 import { useParams, useNavigate } from "react-router-dom";
@@ -261,7 +260,7 @@ const NoteManager: React.FC = () => {
     if (!token) return;
     try {
       const response = await axios.get<Note[]>(
-        "http://localhost:8081/api/notes",
+        "http://localhost:8081/user/notes", // Updated endpoint
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -277,7 +276,7 @@ const NoteManager: React.FC = () => {
     if (!token) return;
     try {
       const response = await axios.get<Note>(
-        `http://localhost:8081/user/view_note/${noteId}`, // Updated endpoint
+        `http://localhost:8081/user/view_note/${noteId}`,
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -299,7 +298,7 @@ const NoteManager: React.FC = () => {
     try {
       const response = await axios.post<Note>(
         "http://localhost:8081/user/create_note/",
-        { title, content, isPublic },
+        { title, content }, // Removed isPublic
         {
           headers: { Authorization: `Bearer ${token}` },
         }
@@ -320,8 +319,8 @@ const NoteManager: React.FC = () => {
     if (!id || !token) return;
     try {
       await axios.put<Note>(
-        `http://localhost:8081/user/edit_note/${id}`, // Updated endpoint
-        { title, content }, // Match backend payload
+        `http://localhost:8081/user/edit_note/${id}`,
+        { title, content },
         {
           headers: { Authorization: `Bearer ${token}` },
         }
